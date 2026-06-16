@@ -5,7 +5,7 @@
   <title>VidLine - Premium Video Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* Global Reset ve Font Yapısı */
+    /* Global Tasarım Ayarları */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -20,7 +20,7 @@
       overflow-x: hidden;
     }
 
-    /* Üst Bar (Navbar) */
+    /* Şeffaf Üst Bar */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -82,15 +82,11 @@
     .profil-alani {
       font-size: 13px;
       font-weight: 600;
-      background: #272727;
-      padding: 6px 12px;
+      background: #cc0000;
+      color: white;
+      padding: 6px 14px;
       border-radius: 20px;
-    }
-
-    /* Ana Yapı Düzeni */
-    .ana-yapi {
-      display: flex;
-      margin-top: 56px;
+      cursor: pointer;
     }
 
     /* Sol Menü (Sidebar) */
@@ -119,25 +115,39 @@
       transition: background-color 0.15s;
     }
     
-    .sidebar-link:hover {
-      background-color: rgba(255, 255, 255, 0.08);
-    }
-    
-    .sidebar-link.aktif {
-      background-color: rgba(255, 255, 255, 0.12);
-      font-weight: 600;
+    .sidebar-link:hover, .sidebar-link.aktif {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
-    /* Sağ İçerik Alanı */
+    /* Sağ İçerik */
     .ana-icerik {
       margin-left: 240px;
       flex-grow: 1;
       padding: 24px;
-      min-height: calc(100vh - 56px);
+      margin-top: 56px;
       background-color: #0f0f0f;
     }
 
-    /* GELİŞMİŞ REKLAM ALANI (MONETIZATION BANNER) */
+    /* SİNEMATİK DAHİLİ VİDEO OYNATICI (PLAYER) */
+    .player-container {
+      width: 100%;
+      max-width: 854px;
+      margin: 0 auto 24px auto;
+      background: #000;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      display: none; /* İlk başta gizli, videoya basınca açılır */
+    }
+
+    .player-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Reklam Alanı */
     .reklam-alani {
       width: 100%;
       max-width: 728px;
@@ -145,7 +155,7 @@
       background: #161616;
       border: 1px dashed #333;
       border-radius: 8px;
-      margin: 0 auto 30px auto;
+      margin: 0 auto 24px auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -153,28 +163,44 @@
       color: #888;
       font-size: 12px;
       font-weight: bold;
-      letter-spacing: 1px;
-    }
-    
-    .reklam-alani span {
-      font-size: 9px;
-      color: #555;
-      margin-bottom: 4px;
-      text-transform: uppercase;
     }
 
-    /* Video Grid Alanı */
+    /* YouTube Kategori Butonları */
+    .kategoriler {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+
+    .kategori-btn {
+      background: #272727;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .kategori-btn:hover, .kategori-btn.aktif {
+      background: #fff;
+      color: #000;
+    }
+
+    /* Grid Yapısı */
     .video-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
     }
 
-    /* Video Kartı */
     .video-card {
       background-color: transparent;
-      text-decoration: none;
-      color: inherit;
       display: flex;
       flex-direction: column;
       cursor: pointer;
@@ -187,7 +213,6 @@
       background-color: #212121;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
     }
     
     .thumbnail-alani img {
@@ -224,7 +249,6 @@
       justify-content: center;
       font-weight: 700;
       font-size: 11px;
-      color: #ffffff;
     }
     
     .yazi-grubu {
@@ -245,17 +269,37 @@
       overflow: hidden;
     }
     
-    .kanal-adi, .izlenme-bilgisi {
+    .kanal-adi {
+      font-size: 12px;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Onay Rozeti (Tik İşareti) */
+    .kanal-adi::after {
+      content: "✓";
+      background: #aaa;
+      color: #0f0f0f;
+      font-size: 9px;
+      font-weight: bold;
+      width: 12px;
+      height: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    
+    .izlenme-bilgisi {
       font-size: 12px;
       color: #aaa;
     }
 
-    /* Mobil Uyum Kodu */
     @media (max-width: 768px) {
       .sidebar { display: none; }
       .ana-icerik { margin-left: 0; padding: 12px; }
-      .navbar { padding: 0 12px; }
-      .search-container { flex-grow: 0.7; }
     }
   </style>
 </head>
@@ -264,9 +308,9 @@
   <div class="navbar">
     <div class="logo-alani">🎬 VidLine <span>PRO</span></div>
     <div class="search-container">
-      <input type="text" id="aramaKutusu" class="search-box" placeholder="Platformda ara...">
+      <input type="text" id="aramaKutusu" class="search-box" placeholder="VidLine üzerinde ara...">
     </div>
-    <div class="profil-alani">Premium Öne Çıkar</div>
+    <div class="profil-alani">$$ Reklam Ver</div>
   </div>
 
   <div class="ana-yapi">
@@ -279,38 +323,47 @@
 
     <div class="ana-icerik">
       
-      <div class="reklam-alani">
-        <span>SPONSORLU REKLAM ALANI (728x90)</span>
-        Google AdSense veya Adsterra Kodu Buraya Gelecek
+      <div class="player-container" id="playerKutusu">
+        <iframe id="vidlineIframe" src="" allowfullscreen allow="autoplay"></iframe>
       </div>
-      <div class="video-grid" id="videoGrid">
-        </div>
+
+      <div class="reklam-alani">
+        <span style="font-size:9px; color:#555; margin-bottom:4px;">SPONSORLU BANNER REKLAMI</span>
+        AdSense / Adsterra Kazanç Kodu Alanı
+      </div>
+
+      <div class="kategoriler">
+        <button class="kategori-btn aktif" data-cat="all">Tümü</button>
+        <button class="kategori-btn" data-cat="music">Müzik</button>
+        <button class="kategori-btn" data-cat="lofi">Lofi & Relax</button>
+        <button class="kategori-btn" data-cat="classic">Klasik</button>
+      </div>
+
+      <div class="video-grid" id="videoGrid"></div>
     </div>
   </div>
 
   <script>
-    // Tamamı küresel olarak çalışan, telifsiz ve engelsiz 12 Popüler Video Verisi
-    const premiumVideolar = [
-      { id: "dQw4w9WgXcQ", baslik: "Rick Astley - Never Gonna Give You Up (Official Music Video)", kanal: "Rick Astley", izlenme: "1.5 Mlrd", sure: "03:32", renk: "#ff5722" },
-      { id: "9bZkp7q19f0", baslik: "PSY - GANGNAM STYLE (강남스타일) M/V", kanal: "officialpsy", izlenme: "5.1 Mlrd", sure: "04:12", renk: "#2196f3" },
-      { id: "jNQXAC9IVRw", baslik: "Me at the zoo - Official First Video on YouTube", kanal: "jawed", izlenme: "310 Mn", sure: "00:19", renk: "#4caf50" },
-      { id: "kJQP7kiw5Fk", baslik: "Luis Fonsi - Despacito ft. Daddy Yankee", kanal: "Luis Fonsi", izlenme: "8.4 Mlrd", sure: "04:42", renk: "#9c27b0" },
-      { id: "09R8_2nJtjg", baslik: "Maroon 5 - Sugar (Official Music Video)", kanal: "Maroon 5", izlenme: "4.0 Mlrd", sure: "05:01", renk: "#e91e63" },
-      { id: "VbfpW0pbvaU", baslik: "Lofi Hip Hop Radio 📚 Beats to Relax/Study to", kanal: "Lofi Girl", izlenme: "750 Mn", sure: "Canlı", renk: "#ffeb3b" },
-      { id: "CevxZvSJLk8", baslik: "Katy Perry - Roar (Official Music Video)", kanal: "Katy Perry", izlenme: "3.9 Mlrd", sure: "04:30", renk: "#00bcd4" },
-      { id: "fRh_vgS2dFE", baslik: "Justin Bieber - Sorry (PURPOSE : The Movement)", kanal: "Justin Bieber", izlenme: "3.7 Mlrd", sure: "03:25", renk: "#607d8b" },
-      { id: "YQHsXMglC9A", baslik: "Adele - Hello (Official Music Video)", kanal: "Adele", izlenme: "3.1 Mlrd", sure: "06:07", renk: "#795548" },
-      { id: "JGwWNGJdvx8", baslik: "Ed Sheeran - Shape of You (Official Music Video)", kanal: "Ed Sheeran", izlenme: "6.2 Mlrd", sure: "04:24", renk: "#ffc107" }
+    const videolar = [
+      { id: "dQw4w9WgXcQ", category: "music", baslik: "Rick Astley - Never Gonna Give You Up (Official Music Video)", kanal: "Rick Astley", izlenme: "1.5 Mlrd • 3 yıl önce", sure: "03:32", renk: "#ff5722" },
+      { id: "9bZkp7q19f0", category: "music", baslik: "PSY - GANGNAM STYLE (강남스타일) M/V", kanal: "officialpsy", izlenme: "5.1 Mlrd • 5 yıl önce", sure: "04:12", renk: "#2196f3" },
+      { id: "VbfpW0pbvaU", category: "lofi", baslik: "Lofi Hip Hop Radio 📚 Beats to Relax/Study to", kanal: "Lofi Girl", izlenme: "750 Mn • Canlı", sure: "Canlı", renk: "#ffeb3b" },
+      { id: "09R8_2nJtjg", category: "music", baslik: "Maroon 5 - Sugar (Official Music Video)", kanal: "Maroon 5", izlenme: "4.0 Mlrd • 2 yıl önce", sure: "05:01", renk: "#e91e63" },
+      { id: "kJQP7kiw5Fk", category: "music", baslik: "Luis Fonsi - Despacito ft. Daddy Yankee", kanal: "Luis Fonsi", izlenme: "8.4 Mlrd • 1 yıl önce", sure: "04:42", renk: "#9c27b0" },
+      { id: "jNQXAC9IVRw", category: "classic", baslik: "Me at the zoo - Official First Video on YouTube", kanal: "jawed", izlenme: "310 Mn • 15 yıl önce", sure: "00:19", renk: "#4caf50" }
     ];
 
     const grid = document.getElementById('videoGrid');
+    const playerKutusu = document.getElementById('playerKutusu');
+    const iframe = document.getElementById('vidlineIframe');
 
-    // Platformun dopdolu durması için listeyi 2 kez döndürerek 20 video kartı basıyoruz
-    for(let i=0; i<2; i++) {
-      premiumVideolar.forEach(vid => {
-        const kart = document.createElement('a');
-        kart.href = `https://www.youtube.com/watch?v=${vid.id}`;
-        kart.target = "_blank";
+    // Videoları Ekrana Basan Fonksiyon
+    function videolariListele(filtre = "all") {
+      grid.innerHTML = "";
+      videolar.forEach(vid => {
+        if(filtre !== "all" && vid.category !== filtre) return;
+
+        const kart = document.createElement('div');
         kart.className = "video-card";
         
         kart.innerHTML = `
@@ -323,20 +376,39 @@
             <div class="yazi-grubu">
               <div class="video-baslik">${vid.baslik}</div>
               <div class="kanal-adi">${vid.kanal}</div>
-              <div class="izlenme-bilgisi">${vid.izlenme} İzlenme</div>
+              <div class="izlenme-bilgisi">${vid.izlenme}</div>
             </div>
           </div>
         `;
+
+        // Tıklama Olayı: YouTube'a YÖNLENDİRMEZ, Sitede Açar!
+        kart.addEventListener('click', () => {
+          iframe.src = `https://www.youtube.com/embed/${vid.id}?autoplay=1`;
+          playerKutusu.style.display = "block";
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         grid.appendChild(kart);
       });
     }
 
-    // Gelişmiş Filtreleme Arama Motoru
+    // İlk açılışta tüm videoları yükle
+    videolariListele();
+
+    // Kategori Filtreleme Tetikleyicileri
+    document.querySelectorAll('.kategori-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.kategori-btn').forEach(b => b.classList.remove('aktif'));
+        e.target.classList.add('aktif');
+        videolariListele(e.target.getAttribute('data-cat'));
+      });
+    });
+
+    // Entegre Arama Çubuğu Sistemi
     const aramaKutusu = document.getElementById('aramaKutusu');
     aramaKutusu.addEventListener('input', function(e) {
       const aranan = e.target.value.toLowerCase();
       const kartlar = document.querySelectorAll('.video-card');
-      
       kartlar.forEach(kart => {
         const baslik = kart.querySelector('.video-baslik').textContent.toLowerCase();
         kart.style.display = baslik.includes(aranan) ? 'flex' : 'none';
