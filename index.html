@@ -130,25 +130,6 @@
       background-color: #0f0f0f;
     }
 
-    /* SİNEMATİK DAHİLİ VİDEO OYNATICI (PLAYER) */
-    .player-container {
-      width: 100%;
-      max-width: 854px;
-      margin: 0 auto 24px auto;
-      background: #000;
-      border-radius: 16px;
-      overflow: hidden;
-      aspect-ratio: 16 / 9;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-      display: none;
-    }
-
-    .player-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
     /* Reklam Alanı */
     .reklam-alani {
       width: 100%;
@@ -157,7 +138,7 @@
       background: #161616;
       border: 1px dashed #333;
       border-radius: 8px;
-      margin: 0 auto 24px auto;
+      margin: 0 auto 40px auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -167,134 +148,31 @@
       font-weight: bold;
     }
 
-    /* YouTube Kategori Butonları */
-    .kategoriler {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 24px;
-      overflow-x: auto;
-      padding-bottom: 8px;
+    /* Boş Ekran Bildirimi */
+    .bos-ekran {
+      text-align: center;
+      padding: 80px 20px;
+      background: #161616;
+      border-radius: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid #222;
     }
 
-    .kategori-btn {
-      background: #272727;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 14px;
+    .bos-ekran-ikon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .bos-ekran-baslik {
+      font-size: 20px;
       font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.2s;
-    }
-
-    .kategori-btn:hover, .kategori-btn.aktif {
-      background: #fff;
-      color: #000;
-    }
-
-    /* Grid Yapısı */
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-    }
-
-    .video-card {
-      background-color: transparent;
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-    }
-
-    .thumbnail-alani {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background-color: #212121;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    
-    .thumbnail-alani img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .sure-etiketi {
-      position: absolute;
-      bottom: 8px;
-      right: 8px;
-      background-color: rgba(0, 0, 0, 0.85);
+      margin-bottom: 8px;
       color: #fff;
-      padding: 3px 6px;
-      font-size: 11px;
-      font-weight: 600;
-      border-radius: 4px;
     }
 
-    .video-detay {
-      display: flex;
-      margin-top: 12px;
-      gap: 12px;
-    }
-    
-    .kanal-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 11px;
-    }
-    
-    .yazi-grubu {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-    }
-    
-    .video-baslik {
+    .bos-ekran-metin {
       font-size: 14px;
-      font-weight: 600;
-      line-height: 20px;
-      color: #f1f1f1;
-      margin-bottom: 4px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    
-    .kanal-adi {
-      font-size: 12px;
-      color: #aaa;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .kanal-adi::after {
-      content: "✓";
-      background: #aaa;
-      color: #0f0f0f;
-      font-size: 9px;
-      font-weight: bold;
-      width: 12px;
-      height: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-    }
-    
-    .izlenme-bilgisi {
-      font-size: 12px;
       color: #aaa;
     }
 
@@ -307,198 +185,36 @@
 <body>
 
   <div class="navbar">
-    <div class="logo-alani" id="logoHome">🎬 VidLine <span>PRO</span></div>
+    <div class="logo-alani">🎬 VidLine <span>PRO</span></div>
     <div class="search-container">
-      <input type="text" id="aramaKutusu" class="search-box" placeholder="100 farklı video arasında ara...">
+      <input type="text" class="search-box" placeholder="Arama yapmak için video yükleyin...">
     </div>
     <div class="profil-alani">$$ Reklam Ver</div>
   </div>
 
   <div class="ana-yapi">
     <div class="sidebar">
-      <div class="sidebar-link aktif" id="btnHome">🏠 Ana Sayfa</div>
+      <div class="sidebar-link aktif">🏠 Ana Sayfa</div>
       <a href="https://www.youtube.com/feed/trending" target="_blank" class="sidebar-link">🔥 Trendler</a>
       <a href="https://www.youtube.com/feed/subscriptions" target="_blank" class="sidebar-link">📁 Abonelikler</a>
       <a href="https://www.youtube.com/feed/history" target="_blank" class="sidebar-link">⏳ Geçmiş</a>
     </div>
 
     <div class="ana-icerik">
-      <div class="player-container" id="playerKutusu">
-        <iframe id="vidlineIframe" src="" allowfullscreen allow="autoplay"></iframe>
-      </div>
-
+      
       <div class="reklam-alani">
         <span style="font-size:9px; color:#555; margin-bottom:4px;">SPONSORLU BANNER REKLAMI</span>
         AdSense / Adsterra Kazanç Kodu Alanı
       </div>
 
-      <div class="kategoriler">
-        <button class="kategori-btn aktif" data-cat="all">Tümü</button>
-        <button class="kategori-btn" data-cat="music">Müzik</button>
-        <button class="kategori-btn" data-cat="lofi">Lofi & Relax</button>
-        <button class="kategori-btn" data-cat="gaming">Gaming</button>
-        <button class="kategori-btn" data-cat="tech">Teknoloji & Eğlence</button>
+      <div class="bos-ekran">
+        <div class="bos-ekran-ikon">📺</div>
+        <div class="bos-ekran-baslik">Henüz Video Bulunmuyor</div>
+        <div class="bos-ekran-metin">Platform altyapısı güncellenmektedir. Çok yakında yeni nesil video içerikleri yüklenecektir!</div>
       </div>
 
-      <div class="video-grid" id="videoGrid"></div>
     </div>
   </div>
 
-  <script>
-    // Birbiriyle hiçbir alakası olmayan, tamamen bağımsız ve gerçek 100 video havuzu
-    const videolar = [
-      { id: "dQw4w9WgXcQ", category: "music", baslik: "Rick Astley - Never Gonna Give You Up (Official Music Video)", kanal: "Rick Astley", izlenme: "1.5 Mlrd • 11 yıl önce", sure: "03:32", renk: "#ff5722" },
-      { id: "9bZkp7q19f0", category: "music", baslik: "PSY - GANGNAM STYLE (강남스타일) M/V", kanal: "officialpsy", izlenme: "5.1 Mlrd • 12 yıl önce", sure: "04:12", renk: "#2196f3" },
-      { id: "VbfpW0pbvaU", category: "lofi", baslik: "Lofi Hip Hop Radio 📚 Beats to Relax/Study to", kanal: "Lofi Girl", izlenme: "790 Mn • Canlı", sure: "Canlı", renk: "#ffeb3b" },
-      { id: "09R8_2nJtjg", category: "music", baslik: "Maroon 5 - Sugar (Official Music Video)", kanal: "Maroon 5", izlenme: "4.0 Mlrd • 9 yıl önce", sure: "05:01", renk: "#e91e63" },
-      { id: "kJQP7kiw5Fk", category: "music", baslik: "Luis Fonsi - Despacito ft. Daddy Yankee", kanal: "Luis Fonsi", izlenme: "8.4 Mlrd • 7 yıl önce", sure: "04:42", renk: "#9c27b0" },
-      { id: "jNQXAC9IVRw", category: "tech", baslik: "Me at the zoo - Official First Video on YouTube", kanal: "jawed", izlenme: "312 Mn • 19 yıl önce", sure: "00:19", renk: "#4caf50" },
-      { id: "CevxZvSJLk8", category: "music", baslik: "Katy Perry - Roar (Official Music Video)", kanal: "Katy Perry", izlenme: "3.9 Mlrd • 10 yıl önce", sure: "04:30", renk: "#00bcd4" },
-      { id: "fRh_vgS2dFE", category: "music", baslik: "Justin Bieber - Sorry (PURPOSE : The Movement)", kanal: "Justin Bieber", izlenme: "3.7 Mlrd • 8 yıl önce", sure: "03:26", renk: "#607d8b" },
-      { id: "YQHsXMglC9A", category: "music", baslik: "Adele - Hello (Official Music Video)", kanal: "Adele", izlenme: "3.1 Mlrd • 8 yıl önce", sure: "06:07", renk: "#795548" },
-      { id: "JGwWNGJdvx8", category: "music", baslik: "Ed Sheeran - Shape of You (Official Music Video)", kanal: "Ed Sheeran", izlenme: "6.2 Mlrd • 7 yıl önce", sure: "04:24", renk: "#ffc107" },
-      { id: "OPf0YbXqDm0", category: "music", baslik: "Mark Ronson - Uptown Funk ft. Bruno Mars", kanal: "Mark Ronson", izlenme: "5.2 Mlrd • 9 yıl önce", sure: "04:31", renk: "#3f51b5" },
-      { id: "aJOTlE1K90k", category: "music", baslik: "Maroon 5 - Girls Like You ft. Cardi B", kanal: "Maroon 5", izlenme: "3.5 Mlrd • 5 yıl önce", sure: "04:31", renk: "#e91e63" },
-      { id: "K4DyBUG242c", category: "music", baslik: "OneRepublic - Counting Stars (Official Video)", kanal: "OneRepublic", izlenme: "3.9 Mlrd • 10 yıl önce", sure: "04:44", renk: "#009688" },
-      { id: "2Vv-BfVoq4g", category: "music", baslik: "Ed Sheeran - Perfect (Official Music Video)", kanal: "Ed Sheeran", izlenme: "3.6 Mlrd • 6 yıl önce", sure: "04:40", renk: "#ffc107" },
-      { id: "04854XqY6Kw", category: "music", baslik: "Linkin Park - Numb (Official Music Video)", kanal: "Linkin Park", izlenme: "2.1 Mlrd • 17 yıl önce", sure: "03:07", renk: "#333333" },
-      { id: "rtOvBOTyX00", category: "music", baslik: "Christina Perri - A Thousand Years [Official Music Video]", kanal: "Christina Perri", izlenme: "2.4 Mlrd • 12 yıl önce", sure: "04:48", renk: "#ff4081" },
-      { id: "hT_nvWreIhg", category: "music", baslik: "One Direction - What Makes You Beautiful (Official Video)", kanal: "One Direction", izlenme: "1.5 Mlrd • 12 yıl önce", sure: "03:27", renk: "#03a9f4" },
-      { id: "nfWlot6h_JM", category: "music", baslik: "Taylor Swift - Shake It Off", kanal: "Taylor Swift", izlenme: "3.3 Mlrd • 9 yıl önce", sure: "04:02", renk: "#ff5252" },
-      { id: "e-ORhEE9VVg", category: "music", baslik: "Taylor Swift - Blank Space", kanal: "Taylor Swift", izlenme: "3.4 Mlrd • 9 yıl önce", sure: "04:33", renk: "#ff5252" },
-      { id: "iXnyV2727K4", category: "music", baslik: "Clean Bandit - Rockabye (feat. Sean Paul & Anne-Marie)", kanal: "Clean Bandit", izlenme: "2.9 Mlrd • 7 yıl önce", sure: "04:14", renk: "#e040fb" },
-      { id: "uelHwf8o7_U", category: "music", baslik: "Eminem - Love The Way You Lie ft. Rihanna", kanal: "Eminem", izlenme: "2.7 Mlrd • 13 yıl önce", sure: "04:27", renk: "#212121" },
-      { id: "YykjpeuM6ME", category: "music", baslik: "Imagine Dragons - Radioactive", kanal: "Imagine Dragons", izlenme: "1.6 Mlrd • 11 yıl önce", sure: "04:22", renk: "#607d8b" },
-      { id: "K3Qzzggn--s", category: "music", baslik: "Imagine Dragons - Believer", kanal: "Imagine Dragons", izlenme: "2.5 Mlrd • 7 yıl önce", sure: "03:37", renk: "#607d8b" },
-      { id: "Wa5B22KAkEk", category: "music", baslik: "Alan Walker - Faded", kanal: "Alan Walker", izlenme: "3.5 Mlrd • 8 yıl önce", sure: "03:33", renk: "#000000" },
-      { id: "4NRXx6U8ABQ", category: "music", baslik: "The Weeknd - Blinding Lights (Official Audio)", credentials: "The Weeknd", kanal: "The Weeknd", izlenme: "740 Mn • 4 yıl önce", sure: "03:22", renk: "#d50000" },
-      { id: "fHI8X4OXluQ", category: "music", baslik: "The Weeknd - Starboy ft. Daft Punk", kanal: "The Weeknd", izlenme: "2.3 Mlrd • 7 yıl önce", sure: "04:34", renk: "#d50000" },
-      { id: "LsoLEjrDogU", category: "music", baslik: "Bruno Mars - That’s What I Like [Official Video]", kanal: "Bruno Mars", izlenme: "2.2 Mlrd • 7 yıl önce", sure: "03:31", renk: "#ffab00" },
-      { id: "bbEoRnaOIbs", category: "music", baslik: "Mike Posner - I Took A Pill In Ibiza (Seeb Remix)", kanal: "Mike Posner", izlenme: "1.5 Mlrd • 8 yıl önce", sure: "03:18", renk: "#9c27b0" },
-      { id: "JeGhEPK7x8Y", category: "music", baslik: "Sia - Chandelier (Official Video)", kanal: "Sia", izlenme: "2.6 Mlrd • 9 yıl önce", sure: "03:52", renk: "#b0bec5" },
-      { id: "vjI0wdfw_eo", category: "music", baslik: "Avicii - Wake Me Up (Official Video)", kanal: "Avicii", izlenme: "2.3 Mlrd • 10 yıl önce", sure: "04:33", renk: "#cfd8dc" },
-      { id: "1w7OgIMMRc4", category: "music", baslik: "Guns N' Roses - Sweet Child O' Mine (Official Video)", kanal: "Guns N' Roses", izlenme: "1.6 Mlrd • 14 yıl önce", sure: "05:03", renk: "#263238" },
-      { id: "fKopy74weus", category: "music", baslik: "Evanescence - Bring Me To Life (Official Music Video)", kanal: "Evanescence", izlenme: "1.3 Mlrd • 14 yıl önce", sure: "04:12", renk: "#37474f" },
-      { id: "0yW7w8F2oxA", category: "music", baslik: "Axwell /\ Ingrosso - More Than You Know", kanal: "AxwellIngrosso", izlenme: "1.1 Mlrd • 6 yıl önce", sure: "03:23", renk: "#111111" },
-      { id: "pAgnJDJN4VA", category: "music", baslik: "AC/DC - Back In Black (Official Video)", kanal: "AC/DC", izlenme: "1.0 Mlrd • 11 yıl önce", sure: "04:14", renk: "#000000" },
-      { id: "kXYiU_JCYtU", category: "music", baslik: "Nirvana - Smells Like Teen Spirit (Official Music Video)", kanal: "Nirvana", izlenme: "1.8 Mlrd • 14 yıl önce", sure: "04:38", renk: "#5d4037" },
-      { id: "tAGnS6T43bc", category: "music", baslik: "Passenger | Let Her Go (Official Video)", kanal: "Passenger", izlenme: "3.5 Mlrd • 11 yıl önce", sure: "04:13", renk: "#8d6e63" },
-      { id: "AByfaYcOm4A", category: "music", baslik: "John Legend - All of Me (Official Video)", kanal: "John Legend", izlenme: "2.3 Mlrd • 10 yıl önce", sure: "05:08", renk: "#4e342e" },
-      { id: "LhcG96n8M34", category: "music", baslik: "Sia - Cheap Thrills ft. Sean Paul", kanal: "Sia", izlenme: "1.8 Mlrd • 8 yıl önce", sure: "03:45", renk: "#b0bec5" },
-      { id: "SlPhMPnQ58k", category: "music", baslik: "Yellow Claw - Till It Hurts ft. Ayden", kanal: "Yellow Claw", izlenme: "230 Mn • 9 yıl önce", sure: "03:11", renk: "#000000" },
-      { id: "UqyT8IEB964", category: "music", baslik: "Martin Garrix - Animals (Official Video)", kanal: "Martin Garrix", izlenme: "1.7 Mlrd • 10 yıl önce", sure: "03:31", renk: "#212121" },
-      
-      // GAMING & TEKNOLOJİ & LOFI KATEGORİLERİ (Devamı 100'e tamamlanıyor)
-      { id: "t9m_ZovM004", category: "gaming", baslik: "GTA 6 - Official Trailer 1", kanal: "Rockstar Games", izlenme: "210 Mn • 2 yıl önce", sure: "01:31", renk: "#ffc107" },
-      { id: "WmWgXm44_FE", category: "gaming", baslik: "Minecraft Official Trailer", kanal: "Minecraft", izlenme: "160 Mn • 12 yıl önce", sure: "01:42", renk: "#4caf50" },
-      { id: "83677_XW73k", category: "gaming", baslik: "Elden Ring - Official Announcement Trailer", kanal: "Bandai Namco", izlenme: "45 Mn • 3 yıl önce", sure: "02:21", renk: "#ff9800" },
-      { id: "EAeaX2UtK8s", category: "tech", baslik: "Introducing iPhone 15 Pro | Apple", kanal: "Apple", izlenme: "65 Mn • 2 yıl önce", sure: "03:15", renk: "#ffffff" },
-      { id: "7v_TAnFw0vA", category: "tech", baslik: "MKBHD - Apple Vision Pro Review: Tomorrow's Tech Today", kanal: "Marques Brownlee", izlenme: "35 Mn • 2 yıl önce", sure: "29:11", renk: "#000000" },
-      { id: "1F5F_S8w93U", category: "tech", baslik: "MrBeast - I Survived 50 Hours In Antarctica", kanal: "MrBeast", izlenme: "190 Mn • 3 yıl önce", sure: "12:40", renk: "#00d2ff" },
-      { id: "287A_XmWv84", category: "lofi", baslik: "1 A.M Study Session 📚 [lofi hip hop/chill beats]", kanal: "Lofi Girl", izlenme: "85 Mn • 2 yıl önce", sure: "01:00:22", renk: "#ffeb3b" },
-      { id: "5qap5aO4i9A", category: "lofi", baslik: "Lofi Hip Hop Mix ☕ Chill beats to relax/craft to", kanal: "ChilledCow", izlenme: "40 Mn • 1 yıl önce", sure: "45:10", renk: "#ffb300" },
-      { id: "hHWw0W8723k", category: "classic", baslik: "Beethoven - Symphony No. 9 (Ode to Joy)", kanal: "Classical Masters", izlenme: "95 Mn • 8 yıl önce", sure: "1:15:20", renk: "#795548" },
-      { id: "v_O8w98w72A", category: "classic", baslik: "Mozart - Requiem in D minor", kanal: "Prague Orchestra", izlenme: "65 Mn • 6 yıl önce", sure: "58:12", renk: "#9e9e9e" }
-    ];
-
-    // Listenin gerçekçi olarak 100 adede tamamlanması için ek varyasyonları farklı ID'lerle basıyoruz
-    const genişletilmişVideolar = [...videolar];
-    const ekstraKlipler = [
-      { id: "V9AbeALNa8A", category: "gaming", baslik: "EA Sports FC 26 - Official Gameplay Reveal", kanal: "EA Sports" },
-      { id: "M7lc1UVf-VE", category: "tech", baslik: "YouTube Spaceship Launch Live Broadcast", kanal: "NASA" },
-      { id: "3JZ_D3N3A2A", category: "gaming", baslik: "Counter-Strike 2 - World Championship Finals", kanal: "ESL Counter-Strike" },
-      { id: "WvXm78AwEFA", category: "tech", baslik: "Unboxing The $10,000 Luxury Secret Box", kanal: "Unbox Therapy" },
-      { id: "98mXw912a7A", category: "music", baslik: "Galatasaray Championship Celebration Official Track", kanal: "Galatasaray SK" }
-    ];
-
-    // Listenin tam 100 benzersiz parça olmasını sağlıyoruz
-    for (let i = genişletilmişVideolar.length; i < 100; i++) {
-      const ek = ekstraKlipler[i % ekstraKlipler.length];
-      const izlenmeRnd = Math.floor(Math.random() * 80) + 5;
-      const gunRnd = Math.floor(Math.random() * 11) + i % 5 + 1;
-      
-      genişletilmişVideolar.push({
-        id: ek.id,
-        category: ek.category,
-        baslik: `[Yeni] ${ek.baslik} #${i}`,
-        kanal: ek.kanal,
-        izlenme: `${izlenmeRnd} Mn İzlenme • ${gunRnd} ay önce`,
-        sure: `1${i%4}:${i%5}2`,
-        renk: "#" + Math.floor(Math.random()*16777215).toString(16)
-      });
-    }
-
-    const grid = document.getElementById('videoGrid');
-    const playerKutusu = document.getElementById('playerKutusu');
-    const iframe = document.getElementById('vidlineIframe');
-
-    function videolariListele(filtre = "all") {
-      grid.innerHTML = "";
-      genişletilmişVideolar.forEach(vid => {
-        if(filtre !== "all" && vid.category !== filtre) return;
-
-        const kart = document.createElement('div');
-        kart.className = "video-card";
-        
-        kart.innerHTML = `
-          <div class="thumbnail-alani">
-            <img src="https://img.youtube.com/vi/${vid.id}/mqdefault.jpg">
-            <div class="sure-etiketi">${vid.sure}</div>
-          </div>
-          <div class="video-detay">
-            <div class="kanal-avatar" style="background: ${vid.renk}; color: #000;">${vid.kanal.substring(0,2).toUpperCase()}</div>
-            <div class="yazi-grubu">
-              <div class="video-baslik">${vid.baslik}</div>
-              <div class="kanal-adi">${vid.kanal}</div>
-              <div class="izlenme-bilgisi">${vid.izlenme}</div>
-            </div>
-          </div>
-        `;
-
-        kart.addEventListener('click', () => {
-          iframe.src = `https://www.youtube.com/embed/${vid.id}?autoplay=1`;
-          playerKutusu.style.display = "block";
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        grid.appendChild(kart);
-      });
-    }
-
-    // İlk çalıştırma
-    videolariListele();
-
-    function siteyiSifirla() {
-      iframe.src = "";
-      playerKutusu.style.display = "none";
-      document.getElementById('aramaKutusu').value = "";
-      document.querySelectorAll('.kategori-btn').forEach(b => b.classList.remove('aktif'));
-      document.querySelector('[data-cat="all"]').classList.add('aktif');
-      videolariListele("all");
-    }
-
-    document.getElementById('btnHome').addEventListener('click', siteyiSifirla);
-    document.getElementById('logoHome').addEventListener('click', siteyiSifirla);
-
-    // Üst Kategori Butonları
-    document.querySelectorAll('.kategori-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        document.querySelectorAll('.kategori-btn').forEach(b => b.classList.remove('aktif'));
-        e.target.classList.add('aktif');
-        videolariListele(e.target.getAttribute('data-cat'));
-      });
-    });
-
-    // Filtreleme / Gelişmiş Arama Çubuğu
-    const aramaKutusu = document.getElementById('aramaKutusu');
-    aramaKutusu.addEventListener('input', function(e) {
-      const aranan = e.target.value.toLowerCase();
-      const kartlar = document.querySelectorAll('.video-card');
-      kartlar.forEach(kart => {
-        const baslik = kart.querySelector('.video-baslik').textContent.toLowerCase();
-        kart.style.display = baslik.includes(aranan) ? 'flex' : 'none';
-      });
-    });
-  </script>
 </body>
 </html>
