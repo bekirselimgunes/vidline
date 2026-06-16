@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <title>VidLine - Premium Video Platform</title>
+  <style>
+    /* Global Reset ve Modern Font Yapısı */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      width: 100%;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0f0f0f;
+      color: #f1f1f1;
+      overflow-x: hidden;
+    }
+
+    /* Üst Bar (Navbar) - Premium Transparan Tasarım */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 0 24px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .logo-alani {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ff0000;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: -0.7px;
+      cursor: pointer;
+    }
+    
+    .logo-alani span {
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 600;
+      background: #272727;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 4px;
+    }
+
+    /* YouTube Tarzı Gelişmiş Arama Kutusu */
+    .search-container {
+      flex-grow: 0.35;
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-box {
+      width: 100%;
+      padding: 10px 20px;
+      border: 1px solid #303030;
+      background-color: #121212;
+      color: #ffffff;
+      border-radius: 40px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    
+    .search-box:focus {
+      border-color: #1c62b9;
+      background-color: #0f0f0f;
+    }
+
+    .tam-ekran-link {
+      background-color: #ffffff;
+      color: #0f0f0f;
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 18px;
+      transition: background-color 0.2s;
+    }
+    
+    .tam-ekran-link:hover {
+      background-color: #d9d9d9;
+    }
+
+    /* Ana Yapı Düzeni */
+    .ana-yapi {
+      display: flex;
+      margin-top: 56px;
+    }
+
+    /* Sol Menü (Sidebar) - Premium YouTube Stili */
+    .sidebar {
+      width: 240px;
+      background-color: #0f0f0f;
+      position: fixed;
+      top: 56px;
+      bottom: 0;
+      left: 0;
+      padding: 12px 0;
+      border-right: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 24px;
+      color: #f1f1f1;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 10px;
+      margin: 0 12px 4px 12px;
+      transition: background-color 0.15s;
+    }
+    
+    .sidebar-link:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+    
+    .sidebar-link.aktif {
+      background-color: rgba(255, 255, 255, 0.12);
+      font-weight: 600;
+    }
+
+    .sidebar-icon {
+      font-size: 18px;
+    }
+
+    /* Sağ Video Grid Alanı */
+    .ana-icerik {
+      margin-left: 240px;
+      flex-grow: 1;
+      padding: 24px;
+      min-height: calc(100vh - 56px);
+      background-color: #0f0f0f;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    /* Video Kartı Mimarisi */
+    .video-card {
+      background-color: transparent;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .thumbnail-alani {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: #212121;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      transition: border-radius 0.2s;
+    }
+    
+    .video-card:hover .thumbnail-alani {
+      border-radius: 4px; /* Üzerine gelince YouTube tarzı hafif keskinleşme */
+    }
+    
+    .thumbnail-alani img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .sure-etiketi {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background-color: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      padding: 3px 6px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Video Bilgi ve Tipografi Alanı */
+    .video-detay {
+      display: flex;
+      margin-top: 12px;
+      gap: 12px;
+    }
+    
+    .kanal-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 11px;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    
+    .yazi-grubu {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    .video-baslik {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      color: #f1f1f1;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .kanal-adi {
+      font-size: 12px;
+      color: #aaa;
+      margin-bottom: 2px;
+      font-weight: 500;
+    }
+
+    .kanal-adi:hover {
+      color: #fff;
+    }
+    
+    .izlenme-bilgisi {
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo-alani">🎬 VidLine <span>PRO</span></div>
+    
+    <div class="search-container">
+      <input type="text" id="aramaKutusu" class="search-box" placeholder="VidLine'da ara...">
+    </div>
+
+    <a href="popup.html" target="_blank" class="tam-ekran-link">🖥️ Tam Ekran Modu</a>
+  </div>
+
+  <div class="ana-yapi">
+
+    <div class="sidebar">
+      <a href="#" class="sidebar-link aktif"><span class="sidebar-icon">🏠</span> Ana Sayfa</a>
+      <a href="#" class="sidebar-link"><span class="sidebar-icon">🔥</span> Trendler</a>
+      <a href="#" class="sidebar-link"><span class="sidebar-icon">📁</span> Abonelikler</a>
+      <a href="#" class="sidebar-link"><span class="sidebar-icon">⏳</span> Geçmiş</a>
+    </div>
+
+    <div class="ana-icerik">
+      <div class="video-grid">
+
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="video-card">
+          <div class="thumbnail-alani">
+            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg">
+            <div class="sure-etiketi">03:32</div>
+          </div>
+          <div class="video-detay">
+            <div class="kanal-avatar" style="background:#ff5722;">RA</div>
+            <div class="yazi-grubu">
+              <div class="video-baslik">Rick Astley - Never Gonna Give You Up (Official Music Video)</div>
+              <div class="kanal-adi">Rick Astley</div>
+              <div class="izlenme-bilgisi">1.5 Mlrd İzlenme • 14 yıl önce</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=9bZkp7q19f0" target="_blank" class="video-card">
+          <div class="thumbnail-alani">
+            <img src="https://img.youtube.com/vi/9bZkp7q19f0/mqdefault.jpg">
+            <div class="sure-etiketi">04:12</div>
+          </div>
+          <div class="video-detay">
+            <div class="kanal-avatar" style="background:#2196f3;">PS</div>
+            <div class="yazi-grubu">
+              <div class="video-baslik">PSY - GANGNAM STYLE (강남스타일) M/V</div>
+              <div class="kanal-adi">officialpsy</div>
+              <div class="izlenme-bilgisi">5.1 Mlrd İzlenme • 12 yıl önce</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=jNQXAC9IVRw" target="_blank" class="video-card">
+          <div class="thumbnail-alani">
+            <img src="https://img.youtube.com/vi/jNQXAC9IVRw/mqdefault.jpg">
+            <div class="sure-etiketi">00:19</div>
+          </div>
+          <div class="video-detay">
+            <div class="kanal-avatar" style="background:#4caf50;">JW</div>
+            <div class="yazi-grubu">
+              <div class="video-baslik">Me at the zoo - Official First Video on YouTube</div>
+              <div class="kanal-adi">jawed</div>
+              <div class="izlenme-bilgisi">310 Mn İzlenme • 21 yıl önce</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=kJQP7kiw5Fk" target="_blank" class="video-card">
+          <div class="thumbnail-alani">
+            <img src="https://img.youtube.com/vi/kJQP7kiw5Fk/mqdefault.jpg">
+            <div class="sure-etiketi">04:42</div>
+          </div>
+          <div class="video-detay">
+            <div class="kanal-avatar" style="background:#9c27b0;">LF</div>
+            <div class="yazi-grubu">
+              <div class="video-baslik">Luis Fonsi - Despacito ft. Daddy Yankee</div>
+              <div class="kanal-adi">Luis Fonsi</div>
+              <div class="izlenme-bilgisi">8.4 Mlrd İzlenme • 9 yıl önce</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=09R8_2nJtjg" target="_blank" class="video-card">
+          <div class="thumbnail-alani">
+            <img src="https://img.youtube.com/vi/09R8_2nJtjg/mqdefault.jpg">
+            <div class="sure-etiketi">05:01</div>
+          </div>
+          <div class="video-detay">
+            <div class="kanal-avatar" style="background:#e91e63;">M5</div>
+            <div class="yazi-grubu">
+              <div class="video-baslik">Maroon 5 - Sugar (Official Music Video)</div>
+              <div class="kanal-adi">Maroon 5</div>
+              <div class="izlenme-bilgisi">4.0 Mlrd İzlenme • 11 yıl önce</div>
+            </div>
+          </div>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=VbfpW0pbvaU" target="_blank" class="video-card">
+          <div class="thumbnail-alani">
+            <img src="https://img.youtube.com/vi/VbfpW0pbvaU/mqdefault.jpg">
+            <div class="sure-etiketi">Canlı</div>
+          </div>
+          <div class="video-detay">
+            <div class="kanal-avatar" style="background:#ffeb3b; color:#000;">LG</div>
+            <div class="yazi-grubu">
+              <div class="video-baslik">Lofi Hip Hop Radio 📚 Beats to Relax/Study to</div>
+              <div class="kanal-adi">Lofi Girl</div>
+              <div class="izlenme-bilgisi">750 Mn İzlenme • 4 yıl önce</div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const aramaKutusu = document.getElementById('aramaKutusu');
+    if (aramaKutusu) {
+      aramaKutusu.addEventListener('input', function(e) {
+        const arananKelime = e.target.value.toLowerCase();
+        const videoKartlari = document.querySelectorAll('.video-card');
+        
+        videoKartlari.forEach(function(kart) {
+          const videoBaslik = kart.querySelector('.video-baslik').textContent.toLowerCase();
+          if (videoBaslik.includes(arananKelime)) {
+            kart.style.display = 'flex';
+          } else {
+            kart.style.display = 'none';
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
